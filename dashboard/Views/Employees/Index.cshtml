@@ -1,0 +1,134 @@
+﻿ 
+
+@model IEnumerable<dashboard.Models.Employee>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+
+
+
+<div class="container">
+    <div class="table-responsive">
+        <table id="myTable" class="table table-bordered">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>HireDate</th>
+                    <th>
+
+                        <input type='checkbox' id="checkAll">
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+
+
+@section Scripts{
+    
+   <script>
+       $(document).ready(function () {
+           var table =   $('#myTable').DataTable(
+               {
+              
+               
+                   lengthChange: true,
+                   info: true,
+                   searching: true,
+                   search: true,
+                   ordering: true,
+                   searchDelay: 1000,
+                   searchable: true,
+                   processing: true,
+                   serverSide: true,
+                   language: {
+                       paginate: {
+                           next: "Next",
+                           previous: "Pervious"
+                       }
+                   },
+                   ajax: {
+                       url: "Employees/Get",
+                       type: "Get",
+                        
+                   },
+                   columns: [
+                        {
+                            className: 'dt-control',
+                            orderable: false,
+                            data: null,
+                            defaultContent: '',
+                        },
+                       { data: "Id", name: "Id" },
+                       { data: "Name", name: "Name" },
+                       { data: "Email", name: "Email" },
+                       { data: "Phone", name: "Phone" },
+                       { data: "HireDate", name: "HireDate" },
+
+                        {
+                            data: "", "render": function () {
+
+                                return "<input type='checkbox' style='display: block;' >"
+
+                            }, "orderable": false,
+                        }
+                   ]
+               }
+           );
+           $("#checkAll").click(function () {
+               $('input:checkbox').not(this).prop('checked', this.checked);
+           });
+
+           $('#myTable tbody').on('click', 'td.dt-control', function () {
+               var tr = $(this).closest('tr');
+
+               var row = table.row(tr);
+        
+               if (row.child.isShown()) {
+                   // This row is already open - close it
+                   row.child.hide();
+                   tr.removeClass('shown');
+               } else {
+                   // Open this row
+                   row.child(format(row.data())).show();
+                   tr.addClass('shown');
+               }
+           });
+         
+       });
+
+       function format(d) {
+           // `d` is the original data object for the row
+           return (
+               '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
+               '<tr>' +
+               '<td>Full name:</td>' +
+               '<td>' +
+               d.Name +
+               '</td>' +
+               '</tr>' +
+               '<tr>' +
+               '<td>Extension number:</td>' +
+               '<td>' +
+               d.Email +
+               '</td>' +
+               '</tr>' +
+               '<tr>' +
+               '<td>Extra info:</td>' +
+               '<td>'+d.Phone+'</td>' +
+               '</tr>' +
+               '</table>'
+           );
+       }
+</script>
+
+}
