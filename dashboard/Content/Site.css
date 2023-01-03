@@ -22,3 +22,10 @@ select,
 textarea {
     max-width: 280px;
 }
+
+
+.btnDelete{
+    margin-top:20px;
+        display: flex;
+    justify-content: flex-end;
+}
