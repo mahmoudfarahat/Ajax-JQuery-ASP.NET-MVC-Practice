@@ -61,5 +61,17 @@ namespace dashboard.Controllers
                 recordsTotal = db.Employees.Count(),
                 data= employees.ToList()}, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpPost]
+        public ActionResult DeleteEmployees(List<int> ids)
+        {
+            foreach (var id in ids)
+            {
+              var employee = db.Employees.Find(id);
+               db.Employees.Remove(employee);
+               db.SaveChanges();
+            }
+            return Json(ids);
+        }
     }
 }

@@ -29,6 +29,10 @@
                 </tr>
             </thead>
         </table>
+         
+        <button class="btn-danger" id="btnDelete">Delete Checked Rows</button>
+
+         
     </div>
 </div>
 
@@ -37,7 +41,8 @@
     
    <script>
        $(document).ready(function () {
-           var table =   $('#myTable').DataTable(
+
+           gloabalTable = $('#myTable').DataTable(
                {
               
                
@@ -72,18 +77,23 @@
                        { data: "Name", name: "Name" },
                        { data: "Email", name: "Email" },
                        { data: "Phone", name: "Phone" },
-                       { data: "HireDate", name: "HireDate" },
+                       { data: "HireDate",  "render": function (value) {
+                           if (value === null) return "";
+                           return moment(value).format('DD/MM/YYYY');
+                       }
+                                           , name: "HireDate" },
 
                         {
-                            data: "", "render": function () {
+                            data: "Id", "render": function (data) {
 
-                                return "<input type='checkbox' style='display: block;' >"
+                                return "<input type='checkbox' class='deleteEmployee' style='display: block;'data-id='" + data + "' >"
 
                             }, "orderable": false,
                         }
                    ]
                }
            );
+
            $("#checkAll").click(function () {
                $('input:checkbox').not(this).prop('checked', this.checked);
            });
@@ -129,6 +139,28 @@
                '</table>'
            );
        }
+
+
+          $("#btnDelete").on("click", function () {
+           listOfArray = [];
+           $(".deleteEmployee:checked").each(function () {
+               listOfArray.push($(this).attr("data-id"));
+           })
+
+
+           $.ajax({
+               url: "/Employees/DeleteEmployees",
+               method: "POST",
+               contentType: "application/json",
+               data: JSON.stringify(listOfArray),
+               success: function (result) {
+                   //swal("successful operation", "", "success")
+                   gloabalTable.ajax.reload();
+                   $("#checkAll").prop("checked", false);
+               }
+           })
+
+       });
 </script>
 
 }
