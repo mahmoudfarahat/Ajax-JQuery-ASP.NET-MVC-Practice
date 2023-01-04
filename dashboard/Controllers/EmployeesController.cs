@@ -57,7 +57,7 @@ namespace dashboard.Controllers
                
 
             return Json( new {
-                recordsFiltered = db.Employees.Count(),
+                recordsFiltered = employees.Count(),
                 recordsTotal = db.Employees.Count(),
                 data= employees.ToList()}, JsonRequestBehavior.AllowGet);
         }
