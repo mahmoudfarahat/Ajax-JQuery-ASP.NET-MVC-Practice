@@ -57,7 +57,7 @@ namespace dashboard.Controllers
                
 
             return Json( new {
-                recordsFiltered = employees.Count(),
+                recordsFiltered = db.Employees.Where(a => a.Name.Contains(search)).Count(),
                 recordsTotal = db.Employees.Count(),
                 data= employees.ToList()}, JsonRequestBehavior.AllowGet);
         }
