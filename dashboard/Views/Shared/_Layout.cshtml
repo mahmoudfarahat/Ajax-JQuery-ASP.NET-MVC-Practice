@@ -12,6 +12,14 @@
     <link href="~/Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet" />
 </head>
 <body>
+
+    <div class="sidebar">
+        <a  href="/">Home</a>
+        <a href="/Employees">Employees</a>
+        <a href="/Home/About">About</a>
+        <a href="/Home/Contact">Contact</a>
+    </div>
+
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -32,7 +40,8 @@
             </div>
         </div>
     </div>
-    <div class="container body-content">
+
+    <div class="container body-content marginLeft">
         @RenderBody()
         <hr />
         <footer>
@@ -51,6 +60,46 @@
     <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+
+            $(".sidebar a").each(function () {
+              
+               
+
+                if ($(this).attr("href") === "/") {
+
+                    $(this).addClass("active");
+                    return;
+
+                }
+                if (window.location.href.indexOf($(this).attr("href")) > -1) {
+             
+                    $(".sidebar a").removeClass("active");
+                    $(this).addClass("active");
+
+                }
+
+                   
+                });
+
+
+
+            //$('.sidebar a').click(function (e) {
+
+            //    $('.sidebar  a').removeClass('active');
+
+               
+            //    $(this).addClass('active');
+ 
+
+
+            //});
+        });
+
+    </script>
 
 </body>
 </html>

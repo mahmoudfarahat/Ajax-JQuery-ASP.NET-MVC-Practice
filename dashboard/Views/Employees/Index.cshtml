@@ -11,6 +11,7 @@
 
 
 
+
 <div class="container">
 
     <div class="btnDelete">
@@ -39,10 +40,7 @@
     </div>
 </div>
 
-<input type="checkbox" name="prog" value="1">
-<input type="checkbox" name="prog" value="2">
-
-<input type="submit" id="submit_prog" value='Submit' />
+ 
 
 @section Scripts{
     
@@ -56,7 +54,7 @@
            gloabalTable = $('#myTable').DataTable(
                {
               
-               
+                    //scrollX: true,
                    lengthChange: true,
                    info: true,
                    searching: true,
