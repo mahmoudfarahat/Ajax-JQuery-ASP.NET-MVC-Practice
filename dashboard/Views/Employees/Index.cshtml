@@ -12,7 +12,12 @@
 
 
 <div class="container">
+
+    <div class="btnDelete">
+        <button class="btn-danger" id="btnDelete">Delete Checked Rows</button>
+    </div>
     <div class="table-responsive">
+     
         <table id="myTable" class="table table-bordered">
             <thead>
                 <tr>
@@ -24,24 +29,29 @@
                     <th>HireDate</th>
                     <th>
 
-                        <input type='checkbox' id="checkAll">
+                        <input type='checkbox' id="checkAll" name='prog'>
                     </th>
                 </tr>
             </thead>
         </table>
-         <div class="btnDelete">
-             <button class="btn-danger" id="btnDelete">Delete Checked Rows</button>
-
-         </div>
+        
          
     </div>
 </div>
 
+<input type="checkbox" name="prog" value="1">
+<input type="checkbox" name="prog" value="2">
+
+<input type="submit" id="submit_prog" value='Submit' />
 
 @section Scripts{
     
    <script>
+    
        $(document).ready(function () {
+
+           
+
 
            gloabalTable = $('#myTable').DataTable(
                {
@@ -87,17 +97,36 @@
                         {
                             data: "Id", "render": function (data) {
 
-                                return "<input type='checkbox' class='deleteEmployee' style='display: block;'data-id='" + data + "' >"
+                                return "<input type='checkbox'     class='deleteEmployee' style='display: block;'data-id='" + data + "' >"
 
                             }, "orderable": false,
                         }
                    ]
+
                }
            );
 
            $("#checkAll").click(function () {
                $('input:checkbox').not(this).prop('checked', this.checked);
            });
+
+
+           $('#btnDelete').hide();
+
+ $(document).on("click", "input[type=checkbox]", function () {
+    if( $("input[type=checkbox]:checked").length == 0){
+        $('#btnDelete').hide();
+    }
+    else {
+        $('#btnDelete').show();
+    }
+
+           
+           })
+
+
+         
+
 
            $('#myTable tbody').on('click', 'td.dt-control', function () {
                var tr = $(this).closest('tr');
@@ -117,6 +146,7 @@
          
        });
 
+      
        function format(d) {
            // `d` is the original data object for the row
            return (
@@ -155,7 +185,7 @@
                contentType: "application/json",
                data: JSON.stringify(listOfArray),
                success: function (result) {
-                   //swal("successful operation", "", "success")
+                   swal("successful Deletation", "", "success")
                    gloabalTable.ajax.reload();
                    $("#checkAll").prop("checked", false);
                }
