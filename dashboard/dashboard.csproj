@@ -177,10 +177,6 @@
     <Compile Include="Migrations\202301050810389_addCustomers.Designer.cs">
       <DependentUpon>202301050810389_addCustomers.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202301050817503_seedCustomers.cs" />
-    <Compile Include="Migrations\202301050817503_seedCustomers.Designer.cs">
-      <DependentUpon>202301050817503_seedCustomers.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -502,9 +498,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202301050810389_addCustomers.resx">
       <DependentUpon>202301050810389_addCustomers.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202301050817503_seedCustomers.resx">
-      <DependentUpon>202301050817503_seedCustomers.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

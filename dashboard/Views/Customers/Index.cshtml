@@ -3,15 +3,18 @@
     ViewBag.Title = "Index";
 }
 
+ 
+<link href="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.8.8/semantic.min.css" rel="stylesheet" /> 
+<link href="https://cdn.datatables.net/1.13.1/css/dataTables.semanticui.min.css" rel="stylesheet" /> 
 <h2>Index</h2>
 <div class="container">
 
     <div class="btnDelete">
-        <button class="btn-danger" id="btnDelete">Delete Checked Rows</button>
+        <button class="btn-danger " id="btnDelete">Delete Checked Rows</button>
     </div>
     <div class="table-responsive">
 
-        <table id="customers" class="table table-bordered">
+        <table id="customers" class="ui celled table">
             <thead>
                 <tr>
                     <th>Id</th>

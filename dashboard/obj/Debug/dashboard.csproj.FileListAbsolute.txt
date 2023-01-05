@@ -56,4 +56,3 @@ C:\Users\mahmoud.farahat\Desktop\dashboard\dashboard\obj\Debug\dashboard.Migrati
 C:\Users\mahmoud.farahat\Desktop\dashboard\dashboard\obj\Debug\dashboard.csproj.GenerateResource.Cache
 C:\Users\mahmoud.farahat\Desktop\dashboard\dashboard\obj\Debug\dashboard.csprojResolveAssemblyReference.cache
 C:\Users\mahmoud.farahat\Desktop\dashboard\dashboard\obj\Debug\dashboard.Migrations.addCustomers.resources
-C:\Users\mahmoud.farahat\Desktop\dashboard\dashboard\obj\Debug\dashboard.Migrations.seedCustomers.resources
