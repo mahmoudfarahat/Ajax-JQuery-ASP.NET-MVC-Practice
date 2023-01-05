@@ -1,0 +1,76 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+<div class="container">
+
+    <div class="btnDelete">
+        <button class="btn-danger" id="btnDelete">Delete Checked Rows</button>
+    </div>
+    <div class="table-responsive">
+
+        <table id="customers" class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>FirstName</th>
+                    <th>LastName</th>
+                    <th>Contact</th>
+                    <th>Email</th>
+                    <th>DateOfBirth</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+        </table>
+
+
+    </div>
+</div>
+@section Scripts{
+ <script>
+     $(document).ready(function () {
+
+         $('#customers').DataTable({
+             "serverSide": true,
+             "ordering": true,
+             "filter": true,
+             "ajax": {
+                 "url": "/Customers/GetCustomers",
+                 "type": "GET",
+                 "datatype":"json"
+             },
+             "columnDefs": [{
+                 "targets": [0],
+                 "visible": false,
+                 "searchable":false
+                    
+             }],
+             "columns": [
+                 { "data": "Id", "name": "Id", "autowidth": true },
+                 { "data": "FirstName", "name": "FirstName", "autowidth": true },
+                 { "data": "LastName", "name": "LastName", "autowidth": true },
+                 { "data": "Contact", "name": "Contact", "autowidth": true },
+                 { "data": "Email", "name": "Email", "autowidth": true },
+                     { data: "DateOfBirth",  "render": function (value) {
+                         if (value === null) return "";
+                         return moment(value).format('DD/MM/YYYY');
+                     }
+                                           , name: "DateOfBirth" },
+               
+                  
+                 {
+                     "render": function (data, type, row) {
+                     return '<a href="#" class="btn btn-danger" onclick=DeleteCustomer("' + row.id + '"); > Delete </a>'
+                 }, "orderable": false
+                 },
+                     
+            
+
+             ]
+         });
+     })
+ </script>
+
+    }

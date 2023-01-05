@@ -26,6 +26,8 @@ namespace dashboard.Models
         }
 
         public DbSet<Employee> Employees { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
