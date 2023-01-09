@@ -19,9 +19,10 @@
         <a href="/Customers">Customers</a>
         <a href="/Home/About">About</a>
         <a href="/Home/Contact">Contact</a>
+        @Html.Partial("_LoginPartial")
     </div>
 
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    @*<div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -37,10 +38,10 @@
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                 </ul>
-                @Html.Partial("_LoginPartial")
+               
             </div>
         </div>
-    </div>
+    </div>*@
 
     <div class="container body-content marginLeft">
         @RenderBody()
