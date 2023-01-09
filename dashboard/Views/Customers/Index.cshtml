@@ -14,18 +14,23 @@
   
     <div class="table-responsive">
 
-        <table id="customers" class="ui celled table" >
+        <table id="searchCustomers" class="ui celled table">
             <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>FirstName</th>
-                    <th>LastName</th>
-                    <th>Contact</th>
-                    <th>Email</th>
-                    <th>DateOfBirth</th>
-                    <th>Actions</th>
-                </tr>
             </thead>
+        </table>
+
+        <table id="customers" class="ui celled table">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>FirstName</th>
+                        <th>LastName</th>
+                        <th>Contact</th>
+                        <th>Email</th>
+                        <th>DateOfBirth</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
         </table>
 
 
@@ -60,7 +65,11 @@
                  "searchable":false
                     
              }],
-          
+
+             "dom": '<"top"1>rt<"bottom"ip><"clear">',
+             "fnInitComplete": function (oSettings, json) {
+                 addSearchControl(json);
+             },
           
              "columns": [
                  { "data": "Id", "name": "Id", "autowidth": true },
@@ -88,21 +97,41 @@
              //},
 
          });
-         //function addSearchControl(json) {
-         //    $("#customers thead").append($("#customers thead tr:first").clone())
-         //    $("#customers thead tr:eq(1) th").each(function (index) {
-         //        $(this).replaceWith('<th><input  type="text" placeholder ="Search ' + $(this).html() + '"></input></th>')
-         //        var searchControl = $("#customers thead tr:eq(1) th:eq(" + index + ") input");
-         //        searchControl.on('keyup', function () {
-         //            console.log(index)
-         //            console.log(searchControl.val())
-
-         //            customersTable.column(index).search(searchControl.val()).draw();
-         //        })
-         //    })
+         function addSearchControl(json) {
+             $("#searchCustomers thead").append($("#customers thead tr:first").clone())
+             $("#searchCustomers thead tr:eq(0) th").each(function (index) {
+                 if (index != 1) {
+                     $(this).replaceWith('<th><input  type="text" placeholder ="Search ' + $(this).html() + '"></input></th>')
+                     var searchControl = $("#searchCustomers thead tr:eq(0) th:eq(" + index + ") input");
+                     searchControl.on('keyup', function () {
 
 
-         //}
+                         customersTable.column(index).search(searchControl.val()).draw();
+                     })
+                 } else {
+                     var dropdown = $('<select/>')
+                     dropdown.append($('<option/>').attr('value', '').text('Select LastName'))
+                     var category = [];
+                     $(json.data).each(function (index, element) {
+
+                         if ($.inArray(element.LastName, category) == -1) {
+
+                             category.push(element.LastName);
+                             dropdown.append($('<option/>').attr('value', element.LastName).text(element.LastName))
+                         }
+                     });
+
+                     $(this).replaceWith('<th>' + $(dropdown).prop('outerHTML') + '</th>')
+                     var searchControl = $("#searchCustomers thead tr:eq(0) th:eq(" + index + ") select");
+                     searchControl.on('change', function () {
+                         customersTable.column(index).search(searchControl.val()).draw();
+                     })
+                 }
+
+             })
+
+
+         }
      })
 
 
