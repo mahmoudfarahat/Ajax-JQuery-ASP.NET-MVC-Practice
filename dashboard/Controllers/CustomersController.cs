@@ -64,8 +64,9 @@ namespace dashboard.Controllers
             }
             if (!string.IsNullOrEmpty(Request.QueryString["columns[4][search][value]"]))
             {
-                var DateOfBirthSearchValue = Request.QueryString["columns[4][search][value]"].ToLower();
-                customers = customers.Where(x => x.DateOfBirth.ToString().Contains(DateOfBirthSearchValue));
+                var DateOfBirthSearchValue = Request.QueryString["columns[4][search][value]"];
+                DateTime oDate = Convert.ToDateTime(DateOfBirthSearchValue);
+                customers = customers.Where(x => x.DateOfBirth  == oDate);
 
             }
 

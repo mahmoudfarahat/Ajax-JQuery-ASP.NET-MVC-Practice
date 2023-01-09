@@ -79,7 +79,7 @@
                  { "data": "Email", "name": "Email", "autowidth": true },
                      { data: "DateOfBirth",  "render": function (value) {
                          if (value === null) return "";
-                         return moment(value).format('DD/MM/YYYY');
+                         return moment(value).format('MM/DD/YYYY');
                      }
                                            , name: "DateOfBirth" },
                
@@ -101,13 +101,24 @@
              $("#searchCustomers thead").append($("#customers thead tr:first").clone())
              $("#searchCustomers thead tr:eq(0) th").each(function (index) {
                  if (index != 1) {
-                     $(this).replaceWith('<th><input  type="text" placeholder ="Search ' + $(this).html() + '"></input></th>')
-                     var searchControl = $("#searchCustomers thead tr:eq(0) th:eq(" + index + ") input");
-                     searchControl.on('keyup', function () {
+                     if (index === 4) {
+                         $(this).replaceWith('<th><input  type="date" placeholder ="Search ' + $(this).html() + '"></input></th>')
+                         var searchControl = $("#searchCustomers thead tr:eq(0) th:eq(" + index + ") input");
+                         searchControl.on('keyup', function () {
 
 
-                         customersTable.column(index).search(searchControl.val()).draw();
-                     })
+                             customersTable.column(index).search(searchControl.val()).draw();
+                         })
+                     } else {
+                         $(this).replaceWith('<th><input  type="text" placeholder ="Search ' + $(this).html() + '"></input></th>')
+                         var searchControl = $("#searchCustomers thead tr:eq(0) th:eq(" + index + ") input");
+                         searchControl.on('keyup', function () {
+
+
+                             customersTable.column(index).search(searchControl.val()).draw();
+                         })
+                     }
+                    
                  } else {
                      var dropdown = $('<select/>')
                      dropdown.append($('<option/>').attr('value', '').text('Select LastName'))
