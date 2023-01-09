@@ -7,13 +7,13 @@ namespace dashboard.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class addCustomers : IMigrationMetadata
+    public sealed partial class addCategory : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(addCustomers));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(addCategory));
         
         string IMigrationMetadata.Id
         {
-            get { return "202301050810389_addCustomers"; }
+            get { return "202301090958341_addCategory"; }
         }
         
         string IMigrationMetadata.Source

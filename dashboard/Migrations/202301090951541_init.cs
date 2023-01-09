@@ -8,6 +8,19 @@ namespace dashboard.Migrations
         public override void Up()
         {
             CreateTable(
+                "dbo.Customers",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        FirstName = c.String(nullable: false, maxLength: 50),
+                        LastName = c.String(nullable: false, maxLength: 50),
+                        Contact = c.String(nullable: false, maxLength: 20),
+                        Email = c.String(nullable: false, maxLength: 120),
+                        DateOfBirth = c.DateTime(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
                 "dbo.Employees",
                 c => new
                     {
@@ -17,6 +30,17 @@ namespace dashboard.Migrations
                         Phone = c.String(),
                         HireDate = c.DateTime(nullable: false),
                         BirthDate = c.DateTime(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.Products",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Name = c.String(),
+                        Price = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        Quantity = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -107,7 +131,9 @@ namespace dashboard.Migrations
             DropTable("dbo.AspNetUsers");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetRoles");
+            DropTable("dbo.Products");
             DropTable("dbo.Employees");
+            DropTable("dbo.Customers");
         }
     }
 }

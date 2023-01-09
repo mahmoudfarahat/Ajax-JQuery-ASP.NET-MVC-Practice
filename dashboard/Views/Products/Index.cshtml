@@ -1,0 +1,74 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<div class="container">
+
+
+    <div class="table-responsive">
+
+        <table id="products" class="ui celled table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Product Name</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Category</th>
+                </tr>
+            </thead>
+        </table>
+
+
+    </div>
+</div>
+
+@section Scripts{
+
+    <script>
+    $(document).ready(function(){
+
+        var ProductsTable = $('#products').DataTable({
+            "ajax": {
+                "url": "/Products/GetProducts",
+                "type": "GET",
+                "datatype": "json"
+            },
+             "columns": [
+            { "data": "Id", "name": "Id" },
+            { "data": "Name", "name": "Name" },
+                 { "data": "Price", "name": "Category" },
+                 { "data": "Quantity", "name": "Quantity" },
+                 { "data": "Category", "name": "Category" },
+        
+        ],
+
+    
+             "dom": '<"top"1>rt<"bottom"ip><"clear">',
+             "fnInitComplete": function (oSettings, json) {
+                 addSearchControl(json);
+             },
+    })
+         function addSearchControl(json) {
+             $("#products thead").append($("#products thead tr:first").clone())
+             $("#products thead tr:eq(1) th").each(function (index) {
+                 $(this).replaceWith('<th><input  type="text" placeholder ="Search ' + $(this).html() + '"></input></th>')
+                 var searchControl = $("#products thead tr:eq(1) th:eq(" + index + ") input");
+                 searchControl.on('keyup', function () {
+                     console.log(index)
+                     console.log(searchControl.val())
+
+                     ProductsTable.column(index).search(searchControl.val()).draw();
+                 })
+             })
+
+
+         }
+    })
+
+
+        </script>
+}

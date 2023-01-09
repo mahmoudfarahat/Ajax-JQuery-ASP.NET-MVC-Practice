@@ -52,7 +52,12 @@ C:\Users\mahmoud.farahat\Desktop\dashboard\dashboard\bin\Microsoft.Owin.Security
 C:\Users\mahmoud.farahat\Desktop\dashboard\dashboard\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Users\mahmoud.farahat\Desktop\dashboard\dashboard\obj\Debug\dashboard.dll
 C:\Users\mahmoud.farahat\Desktop\dashboard\dashboard\obj\Debug\dashboard.pdb
+C:\Users\mahmoud.farahat\Desktop\dashboard\dashboard\bin\System.Linq.Dynamic.Core.dll
+C:\Users\mahmoud.farahat\Desktop\dashboard\dashboard\bin\System.Linq.Dynamic.Core.pdb
+C:\Users\mahmoud.farahat\Desktop\dashboard\dashboard\bin\System.Linq.Dynamic.Core.xml
+C:\Users\mahmoud.farahat\Desktop\dashboard\dashboard\obj\Debug\dashboard.csproj.AssemblyReference.cache
+C:\Users\mahmoud.farahat\Desktop\dashboard\dashboard\obj\Debug\dashboard.csproj.CoreCompileInputs.cache
+C:\Users\mahmoud.farahat\Desktop\dashboard\dashboard\obj\Debug\dashboard.csproj.CopyComplete
 C:\Users\mahmoud.farahat\Desktop\dashboard\dashboard\obj\Debug\dashboard.Migrations.init.resources
-C:\Users\mahmoud.farahat\Desktop\dashboard\dashboard\obj\Debug\dashboard.csproj.GenerateResource.Cache
-C:\Users\mahmoud.farahat\Desktop\dashboard\dashboard\obj\Debug\dashboard.csprojResolveAssemblyReference.cache
-C:\Users\mahmoud.farahat\Desktop\dashboard\dashboard\obj\Debug\dashboard.Migrations.addCustomers.resources
+C:\Users\mahmoud.farahat\Desktop\dashboard\dashboard\obj\Debug\dashboard.csproj.GenerateResource.cache
+C:\Users\mahmoud.farahat\Desktop\dashboard\dashboard\obj\Debug\dashboard.Migrations.addCategory.resources

@@ -3,18 +3,18 @@
     ViewBag.Title = "Index";
 }
 
+
  
 <link href="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.8.8/semantic.min.css" rel="stylesheet" /> 
-<link href="https://cdn.datatables.net/1.13.1/css/dataTables.semanticui.min.css" rel="stylesheet" /> 
+<link href="https://cdn.datatables.net/1.13.1/css/dataTables.semanticui.min.css" rel="stylesheet" />
+
 <h2>Index</h2>
 <div class="container">
 
-    <div class="btnDelete">
-        <button class="btn-danger " id="btnDelete">Delete Checked Rows</button>
-    </div>
+  
     <div class="table-responsive">
 
-        <table id="customers" class="ui celled table">
+        <table id="customers" class="ui celled table" >
             <thead>
                 <tr>
                     <th>Id</th>
@@ -32,13 +32,23 @@
     </div>
 </div>
 @section Scripts{
+   
+
+
  <script>
+
+
      $(document).ready(function () {
 
-         $('#customers').DataTable({
+         var customersTable = $('#customers').DataTable({
              "serverSide": true,
              "ordering": true,
              "filter": true,
+
+             "processing": true,
+             "language": {
+                 "processing": "Processing... Please wait"
+             },
              "ajax": {
                  "url": "/Customers/GetCustomers",
                  "type": "GET",
@@ -50,6 +60,8 @@
                  "searchable":false
                     
              }],
+          
+          
              "columns": [
                  { "data": "Id", "name": "Id", "autowidth": true },
                  { "data": "FirstName", "name": "FirstName", "autowidth": true },
@@ -67,13 +79,40 @@
                      "render": function (data, type, row) {
                      return '<a href="#" class="btn btn-danger" onclick=DeleteCustomer("' + row.id + '"); > Delete </a>'
                  }, "orderable": false
-                 },
-                     
-            
+                 }
+                   
+             ],
+             //"dom": '<"top"1>rt<"bottom"ip><"clear">',
+             //"fnInitComplete": function (oSettings, json) {
+             //    addSearchControl(json);
+             //},
 
-             ]
          });
+         //function addSearchControl(json) {
+         //    $("#customers thead").append($("#customers thead tr:first").clone())
+         //    $("#customers thead tr:eq(1) th").each(function (index) {
+         //        $(this).replaceWith('<th><input  type="text" placeholder ="Search ' + $(this).html() + '"></input></th>')
+         //        var searchControl = $("#customers thead tr:eq(1) th:eq(" + index + ") input");
+         //        searchControl.on('keyup', function () {
+         //            console.log(index)
+         //            console.log(searchControl.val())
+
+         //            customersTable.column(index).search(searchControl.val()).draw();
+         //        })
+         //    })
+
+
+         //}
      })
+
+
+   
  </script>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+
+<script src="https://cdn.datatables.net/1.13.1/js/dataTables.semanticui.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.8.8/semantic.min.js"></script>
+
 
     }

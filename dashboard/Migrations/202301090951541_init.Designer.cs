@@ -13,7 +13,7 @@ namespace dashboard.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "202212290908212_init"; }
+            get { return "202301090951541_init"; }
         }
         
         string IMigrationMetadata.Source
