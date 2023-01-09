@@ -4,14 +4,16 @@
 }
 
 
- 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.8.8/semantic.min.css" rel="stylesheet" /> 
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.8.8/semantic.min.css" rel="stylesheet" />
 <link href="https://cdn.datatables.net/1.13.1/css/dataTables.semanticui.min.css" rel="stylesheet" />
+
+
 
 <h2>Index</h2>
 <div class="container">
 
-  
+
     <div class="table-responsive">
 
         <table id="searchCustomers" class="ui celled table">
@@ -20,139 +22,149 @@
         </table>
 
         <table id="customers" class="ui celled table">
-                <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>FirstName</th>
-                        <th>LastName</th>
-                        <th>Contact</th>
-                        <th>Email</th>
-                        <th>DateOfBirth</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>FirstName</th>
+                    <th>LastName</th>
+                    <th>Contact</th>
+                    <th>Email</th>
+                    <th>DateOfBirth</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
         </table>
 
 
     </div>
 </div>
 @section Scripts{
-   
 
 
- <script>
+
+    <script>
 
 
-     $(document).ready(function () {
+        $(document).ready(function () {
 
-         var customersTable = $('#customers').DataTable({
-             "serverSide": true,
-             "ordering": true,
-             "filter": true,
-
-             "processing": true,
-             "language": {
-                 "processing": "Processing... Please wait"
-             },
-             "ajax": {
-                 "url": "/Customers/GetCustomers",
-                 "type": "GET",
-                 "datatype":"json"
-             },
-             "columnDefs": [{
-                 "targets": [0],
-                 "visible": false,
-                 "searchable":false
-                    
-             }],
-
-             "dom": '<"top"1>rt<"bottom"ip><"clear">',
-             "fnInitComplete": function (oSettings, json) {
-                 addSearchControl(json);
-             },
-          
-             "columns": [
-                 { "data": "Id", "name": "Id", "autowidth": true },
-                 { "data": "FirstName", "name": "FirstName", "autowidth": true },
-                 { "data": "LastName", "name": "LastName", "autowidth": true },
-                 { "data": "Contact", "name": "Contact", "autowidth": true },
-                 { "data": "Email", "name": "Email", "autowidth": true },
-                     { data: "DateOfBirth",  "render": function (value) {
-                         if (value === null) return "";
-                         return moment(value).format('MM/DD/YYYY');
-                     }
-                                           , name: "DateOfBirth" },
-               
-                  
-                 {
-                     "render": function (data, type, row) {
-                     return '<a href="#" class="btn btn-danger" onclick=DeleteCustomer("' + row.id + '"); > Delete </a>'
-                 }, "orderable": false
-                 }
-                   
-             ],
-             //"dom": '<"top"1>rt<"bottom"ip><"clear">',
-             //"fnInitComplete": function (oSettings, json) {
-             //    addSearchControl(json);
-             //},
-
-         });
-         function addSearchControl(json) {
-             $("#searchCustomers thead").append($("#customers thead tr:first").clone())
-             $("#searchCustomers thead tr:eq(0) th").each(function (index) {
-                 if (index != 1) {
-                     if (index === 4) {
-                         $(this).replaceWith('<th><input  type="date" placeholder ="Search ' + $(this).html() + '"></input></th>')
-                         var searchControl = $("#searchCustomers thead tr:eq(0) th:eq(" + index + ") input");
-                         searchControl.on('keyup', function () {
+            var customersTable = $('#customers').DataTable({
 
 
-                             customersTable.column(index).search(searchControl.val()).draw();
-                         })
-                     } else {
-                         $(this).replaceWith('<th><input  type="text" placeholder ="Search ' + $(this).html() + '"></input></th>')
-                         var searchControl = $("#searchCustomers thead tr:eq(0) th:eq(" + index + ") input");
-                         searchControl.on('keyup', function () {
+
+                "serverSide": true,
+                "ordering": true,
+                "filter": true,
+
+                "processing": true,
+                "language": {
+                    "processing": "Processing... Please wait"
+                },
+                "ajax": {
+                    "url": "/Customers/GetCustomers",
+                    "type": "GET",
+                    "datatype": "json"
+                },
+                "columnDefs": [{
+                    "targets": [0],
+                    "visible": false,
+                    "searchable": false
+
+                }],
+
+               "dom": '<"top"1>rt<"bottom"ip><"clear">',
+                "fnInitComplete": function (oSettings, json) {
+                    addSearchControl(json);
+                },
+                
+                "columns": [
+                    { "data": "Id", "name": "Id", "autowidth": true },
+                    { "data": "FirstName", "name": "FirstName", "autowidth": true },
+                    { "data": "LastName", "name": "LastName", "autowidth": true },
+                    { "data": "Contact", "name": "Contact", "autowidth": true },
+                    { "data": "Email", "name": "Email", "autowidth": true },
+                    {
+                        data: "DateOfBirth", "render": function (value) {
+                            if (value === null) return "";
+                            return moment(value).format('MM/DD/YYYY');
+                        }
+                        , name: "DateOfBirth"
+                    },
 
 
-                             customersTable.column(index).search(searchControl.val()).draw();
-                         })
-                     }
-                    
-                 } else {
-                     var dropdown = $('<select/>')
-                     dropdown.append($('<option/>').attr('value', '').text('Select LastName'))
-                     var category = [];
-                     $(json.data).each(function (index, element) {
+                    {
+                        "render": function (data, type, row) {
+                            return '<a href="#" class="btn btn-danger" onclick=DeleteCustomer("' + row.id + '"); > Delete </a>'
+                        }, "orderable": false
+                    }
 
-                         if ($.inArray(element.LastName, category) == -1) {
+                ],
+             
+                //"dom": '<"top"1>rt<"bottom"ip><"clear">',
+                //"fnInitComplete": function (oSettings, json) {
+                //    addSearchControl(json);
+                //},
 
-                             category.push(element.LastName);
-                             dropdown.append($('<option/>').attr('value', element.LastName).text(element.LastName))
-                         }
-                     });
-
-                     $(this).replaceWith('<th>' + $(dropdown).prop('outerHTML') + '</th>')
-                     var searchControl = $("#searchCustomers thead tr:eq(0) th:eq(" + index + ") select");
-                     searchControl.on('change', function () {
-                         customersTable.column(index).search(searchControl.val()).draw();
-                     })
-                 }
-
-             })
+            });
+            function addSearchControl(json) {
+                $("#searchCustomers thead").append($("#customers thead tr:first").clone())
+                $("#searchCustomers thead tr:eq(0) th").each(function (index) {
+                    if (index != 1) {
+                        if (index === 4) {
+                            $(this).replaceWith('<th><input  type="date" placeholder ="Search ' + $(this).html() + '"></input></th>')
+                            var searchControl = $("#searchCustomers thead tr:eq(0) th:eq(" + index + ") input");
+                            searchControl.on('keyup', function () {
 
 
-         }
-     })
+                                customersTable.column(index).search(searchControl.val()).draw();
+                            })
+                        } else if (index == 5) {
+
+                        } else {
+                            $(this).replaceWith('<th><input  type="text" placeholder ="Search ' + $(this).html() + '"></input></th>')
+                            var searchControl = $("#searchCustomers thead tr:eq(0) th:eq(" + index + ") input");
+                            searchControl.on('keyup', function () {
 
 
-   
- </script>
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-<script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+                                customersTable.column(index).search(searchControl.val()).draw();
+                            })
+                        }
 
-<script src="https://cdn.datatables.net/1.13.1/js/dataTables.semanticui.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.8.8/semantic.min.js"></script>
+                    } else {
+                        var dropdown = $('<select/>')
+                        dropdown.append($('<option/>').attr('value', '').text('Select LastName'))
+                        var category = [];
+                        $(json.data).each(function (index, element) {
+
+                            if ($.inArray(element.LastName, category) == -1) {
+
+                                category.push(element.LastName);
+                                dropdown.append($('<option/>').attr('value', element.LastName).text(element.LastName))
+                            }
+                        });
+
+                        $(this).replaceWith('<th>' + $(dropdown).prop('outerHTML') + '</th>')
+                        var searchControl = $("#searchCustomers thead tr:eq(0) th:eq(" + index + ") select");
+                        searchControl.on('change', function () {
+                            customersTable.column(index).search(searchControl.val()).draw();
+                        })
+                    }
+
+                })
 
 
-    }
+            }
+        })
+
+
+
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+
+    <script src="https://cdn.datatables.net/1.13.1/js/dataTables.semanticui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.8.8/semantic.min.js"></script>
+
+    
+
+
+}

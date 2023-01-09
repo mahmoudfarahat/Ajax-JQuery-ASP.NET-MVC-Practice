@@ -3,6 +3,7 @@
     ViewBag.Title = "Index";
 }
 
+
 <h2>Index</h2>
 
 <div class="container">
@@ -13,8 +14,8 @@
         <table id="products" class="ui celled table">
             <thead>
                 <tr>
-                    <th>Id</th>
-                    <th>Product Name</th>
+                    <th class="permanent">Id</th>
+                    <th class="permanent">Product Name</th>
                     <th>Category</th>
                     <th>Price</th>
                     <th>Quantity</th>
@@ -30,67 +31,81 @@
 @section Scripts{
 
     <script>
-    $(document).ready(function(){
+        $(document).ready(function () {
 
-        var ProductsTable = $('#products').DataTable({
-            "ajax": {
-                "url": "/Products/GetProducts",
-                "type": "GET",
-                "datatype": "json"
-            },
-             "columns": [
-            { "data": "Id", "name": "Id" },
-                 { "data": "Name", "name": "Name" },
-                 { "data": "Category", "name": "Category" },
-                 { "data": "Price", "name": "Price" },
-                 { "data": "Quantity", "name": "Quantity" },
-                
-        
-        ],
-
-    
-             "dom": '<"top"1>rt<"bottom"ip><"clear">',
-             "fnInitComplete": function (oSettings, json) {
-                 addSearchControl(json);
-             },
-    })
-         function addSearchControl(json) {
-             $("#products thead").append($("#products thead tr:first").clone())
-             $("#products thead tr:eq(1) th").each(function (index) {
-                 if (index != 2) {
-                     $(this).replaceWith('<th><input  type="text" placeholder ="Search ' + $(this).html() + '"></input></th>')
-                     var searchControl = $("#products thead tr:eq(1) th:eq(" + index + ") input");
-                     searchControl.on('keyup', function () {
-                        
-
-                         ProductsTable.column(index).search(searchControl.val()).draw();
-                     })
-                 } else {
-                     var dropdown = $('<select/>')
-                     dropdown.append($('<option/>').attr('value', '').text('Select Category'))
-                     var category = [];
-                     $(json.data).each(function (index, element) {
-                   
-                         if ($.inArray(element.Category, category) == -1) {
-                    
-                             category.push(element.Category);
-                             dropdown.append($('<option/>').attr('value', element.Category).text(element.Category))
-                         }
-                     });
-                     
-                     $(this).replaceWith('<th>' + $(dropdown).prop('outerHTML') + '</th>')
-                     var searchControl = $("#products thead tr:eq(1) th:eq(" + index + ") select");
-                     searchControl.on('change', function () {
-                         ProductsTable.column(index).search(searchControl.val() == "" ? "" : '^' + searchControl.val() + '$', true, false).draw();
-                     })
-                 }
-                 
-             })
+            var ProductsTable = $('#products').DataTable({
+                "ajax": {
+                    "url": "/Products/GetProducts",
+                    "type": "GET",
+                    "datatype": "json"
+                },
+                "columns": [
+                    { "data": "Id", "name": "Id" },
+                    { "data": "Name", "name": "Name" },
+                    { "data": "Category", "name": "Category" },
+                    { "data": "Price", "name": "Price" },
+                    { "data": "Quantity", "name": "Quantity" },
 
 
-         }
-    })
+                ],
 
 
-        </script>
+                "dom": '<"top"1>rt<"bottom"ip><"clear">',
+              
+                "fnInitComplete": function (oSettings, json) {
+                    addSearchControl(json);
+                },
+
+                  dom: 'Bfrtip' ,
+                buttons: [
+                    {
+                        extend: 'colvis',
+                        columns:':not(.permanent)'
+                         
+                    }]
+            })
+            function addSearchControl(json) {
+                $("#products thead").append($("#products thead tr:first").clone())
+                $("#products thead tr:eq(1) th").each(function (index) {
+                    if (index != 2) {
+                        $(this).replaceWith('<th><input  type="text" placeholder ="Search ' + $(this).html() + '"></input></th>')
+                        var searchControl = $("#products thead tr:eq(1) th:eq(" + index + ") input");
+                        searchControl.on('keyup', function () {
+
+
+                            ProductsTable.column(index).search(searchControl.val()).draw();
+                        })
+                    } else {
+                        var dropdown = $('<select/>')
+                        dropdown.append($('<option/>').attr('value', '').text('Select Category'))
+                        var category = [];
+                        $(json.data).each(function (index, element) {
+
+                            if ($.inArray(element.Category, category) == -1) {
+
+                                category.push(element.Category);
+                                dropdown.append($('<option/>').attr('value', element.Category).text(element.Category))
+                            }
+                        });
+
+                        $(this).replaceWith('<th>' + $(dropdown).prop('outerHTML') + '</th>')
+                        var searchControl = $("#products thead tr:eq(1) th:eq(" + index + ") select");
+                        searchControl.on('change', function () {
+                            ProductsTable.column(index).search(searchControl.val() == "" ? "" : '^' + searchControl.val() + '$', true, false).draw();
+                        })
+                    }
+
+                })
+
+
+            }
+        })
+
+
+    </script>
+
+
+     
+   
+
 }

@@ -6,103 +6,105 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-<link href="~/Content/DataTables/css/dataTables.bootstrap.css" rel="stylesheet" />
-    <link href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css" rel="stylesheet" /> 
+    <link href="~/Content/DataTables/css/dataTables.bootstrap.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css" rel="stylesheet" />
 
     <link href="~/Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet" />
-</heady
-<body>
+    <link href="https://cdn.datatables.net/buttons/2.3.2/css/buttons.dataTables.min.css" rel="stylesheet" />
+    </heady
+    <body>
 
-    <div class="sidebar">
-        <a href="/">Home</a>
-        <a href="/Employees">Employees</a>
-        <a href="/Customers">Customers</a>
-        <a href="/Products">Products</a>
-        <a href="/Home/About">About</a>
-        <a href="/Home/Contact">Contact</a>
-        @Html.Partial("_LoginPartial")
-    </div>
-
-    @*<div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
-               
-            </div>
+        <div class="sidebar">
+            <a href="/">Home</a>
+            <a href="/Employees">Employees</a>
+            <a href="/Customers">Customers</a>
+            <a href="/Products">Products</a>
+            <a href="/Home/About">About</a>
+            <a href="/Home/Contact">Contact</a>
+            @Html.Partial("_LoginPartial")
         </div>
-    </div>*@
 
-    <div class="container body-content marginLeft">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
+        @*<div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("About", "About", "Home")</li>
+                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    </ul>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
-  
-   
+                </div>
+            </div>
+        </div>*@
 
-    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+        <div class="container body-content marginLeft">
+            @RenderBody()
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            </footer>
+        </div>
 
-    <script>
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
 
-        $(document).ready(function () {
 
-            $(".sidebar a").each(function () {
-              
-               
 
-                if ($(this).attr("href") === "/") {
+        <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+        <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/2.3.2/js/dataTables.buttons.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.colVis.min.js"></script>
+        <script>
 
-                    $(this).addClass("active");
-                    return;
+            $(document).ready(function () {
 
-                }
-                if (window.location.href.indexOf($(this).attr("href")) > -1) {
-             
-                    $(".sidebar a").removeClass("active");
-                    $(this).addClass("active");
+                $(".sidebar a").each(function () {
 
-                }
 
-                   
+
+                    if ($(this).attr("href") === "/") {
+
+                        $(this).addClass("active");
+                        return;
+
+                    }
+                    if (window.location.href.indexOf($(this).attr("href")) > -1) {
+
+                        $(".sidebar a").removeClass("active");
+                        $(this).addClass("active");
+
+                    }
+
+
                 });
 
 
 
-            //$('.sidebar a').click(function (e) {
+                //$('.sidebar a').click(function (e) {
 
-            //    $('.sidebar  a').removeClass('active');
-
-               
-            //    $(this).addClass('active');
- 
+                //    $('.sidebar  a').removeClass('active');
 
 
-            //});
-        });
+                //    $(this).addClass('active');
 
-    </script>
 
-</body>
+
+                //});
+            });
+
+        </script>
+
+    </body>
 </html>
