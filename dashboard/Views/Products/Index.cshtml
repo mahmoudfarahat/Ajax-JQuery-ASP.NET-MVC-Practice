@@ -54,18 +54,34 @@
 
 
                 "dom": '<"top"1>rt<"bottom"ip><"clear">',
-              
+
                 "fnInitComplete": function (oSettings, json) {
                     addSearchControl(json);
                 },
- 
-                  dom: 'Bfrtip' ,
+
+                dom: 'Bfrtip',
                 buttons: [
                     {
                         extend: 'colvis',
-                        columns:':not(.permanent)'
-                         
-                    }]
+                        columns: ':not(.permanent)'
+
+                    },
+                    {
+                        extend: 'pdf',
+                    },
+                    {
+                        extend: 'copy',
+                    },
+                    ,
+                    {
+                        extend: 'print',
+                    },
+                    ,
+                    {
+                        extend: 'excel',
+                    }
+                    
+                ]
             })
             function addSearchControl(json) {
                 $("#products thead").append($("#products thead tr:first").clone())
