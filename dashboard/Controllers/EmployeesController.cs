@@ -1,6 +1,7 @@
 ﻿using dashboard.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -78,15 +79,29 @@ namespace dashboard.Controllers
         [HttpGet]
         public ActionResult AddOrEdit(int? id)
         {
-            return View(new Employee());
+            if(id == 0)
+            {
+                return View(new Employee());
+            }
+            return View(db.Employees.Find(id));
         }
 
         [HttpPost]
         public ActionResult AddOrEdit(Employee employee)
         {
-            db.Employees.Add(employee);
-            db.SaveChanges();
-            return Json(new { success = true, message = "Saved Successfully" }, JsonRequestBehavior.AllowGet);
+            if(employee.Id == 0)
+            {
+                db.Employees.Add(employee);
+                db.SaveChanges();
+                return Json(new { success = true, message = "Saved Successfully" }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                db.Entry(employee).State = EntityState.Modified;
+                db.SaveChanges();
+                return Json(new { success = true, message = "Updated Successfully" }, JsonRequestBehavior.AllowGet);
+            }
+           
         }
     }
 }

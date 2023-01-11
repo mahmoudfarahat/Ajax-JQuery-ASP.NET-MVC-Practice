@@ -66,6 +66,17 @@ div.content {
   height: 1000px;
 }
 
+.field-validation-error{
+    color: #e80c4d;
+    font-weight:bold;
+}
+
+input[type="text"].input-validation-error{
+    border: 1px solid #e80c4d;
+}
+
+
+
 @media screen and (max-width: 700px) {
   .sidebar {
     width: 100%;

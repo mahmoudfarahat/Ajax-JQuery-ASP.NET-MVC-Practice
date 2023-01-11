@@ -28,8 +28,8 @@
                     <th>Email</th>
                     <th>Phone</th>
                     <th>HireDate</th>
+                    <th>Actions</th>
                     <th>
-
                         <input type='checkbox' id="checkAll" name='prog'>
                     </th>
                 </tr>
@@ -44,7 +44,7 @@
 
 @section Scripts{
     
-   <script>
+    <script>
        var Popup
 
        function PopupForm(url) {
@@ -57,7 +57,7 @@
                    Popup = formDiv.dialog({
                        autoOpen: true,
                        resizeable: false,
-                       title: "Fill Employee Detials",
+                       title: "Fill Employee Details",
                        height: 500,
                        width: 700,
                        close: function () {
@@ -80,22 +80,26 @@
                        if (data.success) {
                            Popup.dialog('close')
                            gloabalTable.ajax.reload();
+                           $.notify(data.message, {
+                               globalPosition: "top center",
+                               className: "success"
+                           })
                        }
                    }
                })
            }
 
-       
+
            return false;
        }
        $(document).ready(function () {
 
-           
+
 
 
            gloabalTable = $('#myTable').DataTable(
                {
-              
+
                     //scrollX: true,
                    lengthChange: true,
                    info: true,
@@ -117,9 +121,9 @@
                    ajax: {
                        url: "Employees/Get",
                        type: "Get",
-                        
+
                    },
-                   
+
                    columns: [
                         {
                             className: 'dt-control',
@@ -133,16 +137,23 @@
                        { data: "Phone", name: "Phone" },
                        { data: "HireDate",  "render": function (value) {
                            if (value === null) return "";
-                           return moment(value).format('DD/MM/YYYY');
+                           return moment(value).format('MM/DD/YYYY');
                        }
-                                           , name: "HireDate" },
+                           , name: "HireDate"
+                       },
+
+                       {
+                           data: "Id", "render": function (data) {
+                               return "<a class='btn btn-primary' onclick=PopupForm('@Url.Action("AddOrEdit","Employees")/"+data+"')>Edit<a/>";
+                           }, "orderable": false,
+                       },
 
                         {
                             data: "Id", "render": function (data) {
 
                                 return "<input type='checkbox'     class='deleteEmployee' style='display: block;'data-id='" + data + "' >"
 
-                            }, "orderable": false,
+                            }, "orderable": false, "width": "100px"
                         }
                    ]
 
@@ -164,18 +175,18 @@
         $('#btnDelete').show();
     }
 
-           
+
            })
 
 
-         
+
 
 
            $('#myTable tbody').on('click', 'td.dt-control', function () {
                var tr = $(this).closest('tr');
 
                var row = gloabalTable.row(tr);
-        
+
                if (row.child.isShown()) {
                    // This row is already open - close it
                    row.child.hide();
@@ -186,10 +197,10 @@
                    tr.addClass('shown');
                }
            });
-         
+
        });
 
-      
+
        function format(d) {
            // `d` is the original data object for the row
            return (
@@ -235,6 +246,6 @@
            })
 
        });
-</script>
+    </script>
 
 }
