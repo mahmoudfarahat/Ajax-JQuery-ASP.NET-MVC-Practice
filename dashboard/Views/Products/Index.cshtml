@@ -2,8 +2,11 @@
 @{
     ViewBag.Title = "Index";
 }
-
-
+<style>
+   /* #products{
+        white-space: nowrap
+    }*/
+</style>
 <h2>Index</h2>
 
 <div class="container">
@@ -55,7 +58,7 @@
                 "fnInitComplete": function (oSettings, json) {
                     addSearchControl(json);
                 },
-
+ 
                   dom: 'Bfrtip' ,
                 buttons: [
                     {

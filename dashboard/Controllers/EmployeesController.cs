@@ -73,5 +73,20 @@ namespace dashboard.Controllers
             }
             return Json(ids);
         }
+
+
+        [HttpGet]
+        public ActionResult AddOrEdit(int? id)
+        {
+            return View(new Employee());
+        }
+
+        [HttpPost]
+        public ActionResult AddOrEdit(Employee employee)
+        {
+            db.Employees.Add(employee);
+            db.SaveChanges();
+            return Json(new { success = true, message = "Saved Successfully" }, JsonRequestBehavior.AllowGet);
+        }
     }
 }

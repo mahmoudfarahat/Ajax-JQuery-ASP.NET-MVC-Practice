@@ -61,3 +61,4 @@ C:\Users\mahmoud.farahat\Desktop\dashboard\dashboard\obj\Debug\dashboard.csproj.
 C:\Users\mahmoud.farahat\Desktop\dashboard\dashboard\obj\Debug\dashboard.Migrations.init.resources
 C:\Users\mahmoud.farahat\Desktop\dashboard\dashboard\obj\Debug\dashboard.csproj.GenerateResource.cache
 C:\Users\mahmoud.farahat\Desktop\dashboard\dashboard\obj\Debug\dashboard.Migrations.addCategory.resources
+C:\Users\mahmoud.farahat\Desktop\dashboard\dashboard\obj\Debug\dashboard.Migrations.addvalidation.resources

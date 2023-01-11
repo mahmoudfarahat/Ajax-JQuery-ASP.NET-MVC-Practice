@@ -13,7 +13,7 @@
 
 
 <div class="container">
-
+    <a class="btn btn-default"  onclick="PopupForm('@Url.Action("AddOrEdit","Employees")')">Add New</a>
     <div class="btnDelete">
         <button class="btn btn-danger" id="btnDelete">Delete Checked Rows</button>
     </div>
@@ -45,7 +45,49 @@
 @section Scripts{
     
    <script>
-    
+       var Popup
+
+       function PopupForm(url) {
+
+           var formDiv = $('<div/>')
+           $.get(url)
+               .done(function (response) {
+                   formDiv.html(response)
+
+                   Popup = formDiv.dialog({
+                       autoOpen: true,
+                       resizeable: false,
+                       title: "Fill Employee Detials",
+                       height: 500,
+                       width: 700,
+                       close: function () {
+                           Popup.dialog('destroy').remove();
+                       }
+
+                   })
+               })
+       }
+
+
+       function SubmitForm(form) {
+           $.validator.unobtrusive.parse(form)
+           if ($(form).valid()) {
+               $.ajax({
+                   type: "POST",
+                   url: form.action,
+                   data: $(form).serialize(),
+                   success: function (data) {
+                       if (data.success) {
+                           Popup.dialog('close')
+                           gloabalTable.ajax.reload();
+                       }
+                   }
+               })
+           }
+
+       
+           return false;
+       }
        $(document).ready(function () {
 
            
@@ -69,13 +111,15 @@
                        paginate: {
                            next: "Next",
                            previous: "Pervious"
-                       }
+                       },
+                       "emptyTable":"No Data Found, Please Click on <b>Add new </b> Button"
                    },
                    ajax: {
                        url: "Employees/Get",
                        type: "Get",
                         
                    },
+                   
                    columns: [
                         {
                             className: 'dt-control',
